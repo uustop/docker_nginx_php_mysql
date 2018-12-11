@@ -1,0 +1,44 @@
+version: '2'
+services:
+
+### Nginx Server Container #############################
+
+  nginx:
+      build: ./etc/nginx
+      privileged: true
+      ports:
+        - "80:80"
+        - "443:443"
+      links:
+        - "php56"
+      volumes:
+        - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./vhost/:/etc/nginx/conf.d/
+        - /Users/uustop/code/cityo2o/:/var/www/
+        - ./logs/nginx/:/var/log/nginx/
+
+### PHP Container #############################
+
+  php56:
+      build: ./etc/php56
+      privileged: true
+      ports:
+        - "9056:9000"
+      links:
+        - "mysql56"
+      volumes:
+        - /Users/uustop/code/cityo2o/:/var/www/
+
+### MYSQL Container ############################
+
+  mysql56:
+      build: ./etc/mysql56
+      privileged: true
+      ports:
+        - "33056:3306"
+      volumes:
+        - ./data/mysql56:/var/lib/mysql
+        - ./logs/mysql56/:/var/log/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=123456
+
