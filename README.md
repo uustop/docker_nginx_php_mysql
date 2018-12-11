@@ -1,5 +1,14 @@
 # nginx php56 mysql56 docker环境
-
+```
+# 先构建
+docker-compose build
+# 修改配置文件
+映射php文件和修改nginx配置文件
+# 再运行php项目
+docker-compose up
+# 停止php项目
+docker-compose down
+```
 ## 快捷键
 ```
 # 关闭容器
